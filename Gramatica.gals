@@ -1,0 +1,122 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+ScannerCaseSensitive = true
+ScannerTable = Full
+Input = Stream
+Parser = LL
+#RegularDefinitions
+WS:[\ \n\t\s]
+L:[A-Za-z]
+D: [0-9]
+#Tokens
+:{WS}*
+// Começo e fim do programa
+beginning: "beginning"
+ending: "ending"
+
+// Tipos
+var : {L} ({L} | {D})*
+int : ({D})*
+
+//comandos de I/O
+integer    = var: "int"
+consoleIn  = var: "consoleIn"
+consoleOut = var: "consoleOut"
+if         = var: "if"
+else       = var: "else"
+while      = var: "while"
+
+// tokens de terminação
+
+final   :  ";"
+abrePA  :  "("
+fechaPA :  ")"
+abreCH  :  "{"
+fechaCH :  "}"
+
+// tokens de operadores (SYMBOL)
+
+addition        : "+"
+substraction    : "-"
+multiplication  : "*"
+division        : "/"
+
+equal           : "="
+
+//logical operator
+maior 	       : ">"
+menor           : "<"
+
+
+#NonTerminals
+<PROGRAM>
+<COMMANDS_LIST>
+<COMMAND>
+<ASSIGNMENT>
+<PARAMETER>
+<SYMBOL>
+<MATHEMATICAL_EXPRESSION>
+<COMPLETE_PARAMETER>
+<CALCULATION>
+<LOGICAL_OPERATOR>
+<ELSE>
+<MATHEMATICAL_OPERATION>
+<ARITHMETIC_OPERATOR>
+
+
+
+#Grammar
+// comeco do programa
+<PROGRAM> ::= beginning <COMMANDS_LIST> ending;
+
+// Lista dos comandos
+<COMMANDS_LIST> ::= <COMMAND> <COMMANDS_LIST>;
+<COMMANDS_LIST> ::= î;
+
+//Declaração de variaveis
+<COMMAND> ::= integer var<ASSIGNMENT> final;
+<COMMAND> ::= <PARAMETER> <ASSIGNMENT> final;
+<ASSIGNMENT> ::= equal <SYMBOL>;
+<SYMBOL> ::= <MATHEMATICAL_EXPRESSION>;
+<ASSIGNMENT> ::= î;
+
+<PARAMETER> ::= int | var;
+
+// I/O
+
+<COMMAND> ::= consoleOut abrePA <COMPLETE_PARAMETER> fechaPA final;
+<COMMAND> ::= consoleIn abrePA var fechaPA final;
+
+<COMPLETE_PARAMETER> ::= int | var; 
+
+// Condicional
+
+<CALCULATION> ::= abrePA <MATHEMATICAL_EXPRESSION> <LOGICAL_OPERATOR> <MATHEMATICAL_EXPRESSION> fechaPA;
+<COMMAND> ::= if <CALCULATION> abreCH <COMMANDS_LIST> fechaCH <ELSE>;
+<ELSE> ::= else abreCH <COMMANDS_LIST> fechaCH;
+<ELSE> ::= î;
+
+// estrutura de repeticao
+<COMMAND> ::= while <CALCULATION> abreCH <COMMANDS_LIST> fechaCH;
+
+
+// expressoes matematicas T_T
+
+<MATHEMATICAL_EXPRESSION> ::=  <PARAMETER> <MATHEMATICAL_OPERATION>;
+<MATHEMATICAL_EXPRESSION> ::= abrePA <MATHEMATICAL_EXPRESSION> fechaPA <MATHEMATICAL_OPERATION>;
+<MATHEMATICAL_OPERATION>  ::= <ARITHMETIC_OPERATOR> <MATHEMATICAL_EXPRESSION>;
+<MATHEMATICAL_OPERATION>  ::= î;
+
+<ARITHMETIC_OPERATOR> ::= addition | substraction | multiplication | division;
+<LOGICAL_OPERATOR> ::= maior | menor;
+
+
+ 
+
+
+  
