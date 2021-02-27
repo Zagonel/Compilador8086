@@ -219,4 +219,138 @@ public class Sintaxico {
 
     }
 
+    private List<String> producaoSintatica(int numero) {
+        List<String> retorno = new ArrayList();
+
+        if (numero == 0) {
+            retorno.add("beginning");
+            retorno.add("COMMANDS_LIST");
+            retorno.add("ending");
+            return retorno;
+        } else if (numero == 1) {
+            retorno.add("COMMAND");
+            retorno.add("COMMANDS_LIST");
+            return retorno;
+        } else if (numero == 2) {
+            retorno.add("E");
+            return retorno;
+        } else if (numero == 3) {
+            retorno.add("integer");
+            retorno.add("var");
+            retorno.add("ASSIGNMENT");
+            retorno.add("final");
+            return retorno;
+        } else if (numero == 4) {
+            retorno.add("PARAMETER");
+            retorno.add("ASSIGNMENT");
+            retorno.add("final");
+            return retorno;
+        } else if (numero == 5) {
+            retorno.add("equal");
+            retorno.add("SYMBOL");
+            return retorno;
+        } else if (numero == 6) {
+            retorno.add("MATHEMATICAL_EXPRESSION");
+            return retorno;
+        } else if (numero == 7) {
+            retorno.add("E");
+            return retorno;
+        } else if (numero == 8) {
+            retorno.add("int");
+            return retorno;
+        } else if (numero == 9) {
+            retorno.add("var");
+            return retorno;
+        } else if (numero == 10) {
+            retorno.add("ConsoleOut");
+            retorno.add("abrePA");
+            retorno.add("COMPLETE_PARAMETER");
+            retorno.add("fechaPA");
+            retorno.add("final");
+            return retorno;
+        } else if (numero == 11) {
+            retorno.add("consoleIn");
+            retorno.add("abrePA");
+            retorno.add("var");
+            retorno.add("fechaPA");
+            retorno.add("final");
+            return retorno;
+        } else if (numero == 12) {
+            retorno.add("int");
+            return retorno;
+        } else if (numero == 13) {
+            retorno.add("var");
+            return retorno;
+        } else if (numero == 14) {
+            retorno.add("abrePA");
+            retorno.add("MATHEMATICAL_EXPRESSION");
+            retorno.add("LOGICAL_OPERATOR");
+            retorno.add("MATHEMATICAL_EXPRESSION");
+            retorno.add("fechaPA");
+            return retorno;
+        } else if (numero == 15) {
+            retorno.add("if");
+            retorno.add("CALCULATION");
+            retorno.add("abreCH");
+            retorno.add("COMMANDS_LIST");
+            retorno.add("fechaCH");
+            retorno.add("ELSE");
+            return retorno;
+        } else if (numero == 16) {
+            retorno.add("else");
+            retorno.add("abreCH");
+            retorno.add("COMMANDS_LIST");
+            retorno.add("fechaCH");
+            return retorno;
+        } else if (numero == 17) {
+            retorno.add("E");
+            return retorno;
+        } else if (numero == 18) {
+            retorno.add("while");
+            retorno.add("CALCULATION");
+            retorno.add("abreCH");
+            retorno.add("COMMANDS_LIST");
+            retorno.add("fechaCH");
+            return retorno;
+        } else if (numero == 19) {
+            retorno.add("PARAMETER");
+            retorno.add("MATHEMATICAL_OPERATION");
+            return retorno;
+        } else if (numero == 20) {
+            retorno.add("abrePA");
+            retorno.add("MATHEMATICAL_EXPRESSION");
+            retorno.add("fechaPA");
+            retorno.add("MATHEMATICAL_OPERATION");
+            return retorno;
+        } else if (numero == 21) {
+            retorno.add("ARITHMETIC_OPERATOR");
+            retorno.add("MATHEMATICAL_EXPRESSION");
+            return retorno;
+        } else if (numero == 22) {
+            retorno.add("E");
+            return retorno;
+        } else if (numero == 23) {
+            retorno.add("addition");
+            return retorno;
+        } else if (numero == 24) {
+            retorno.add("substraction");
+            return retorno;
+        } else if (numero == 25) {
+            retorno.add("multiplication");
+            return retorno;
+        } else if (numero == 26) {
+            retorno.add("division");
+            return retorno;
+        } else if (numero == 27) {
+            retorno.add("maior");
+            return retorno;
+        } else if (numero == 28) {
+            retorno.add("menor");
+            return retorno;
+        } else {
+            retorno.add("\0");
+            return retorno;
+        }
+    }
+
 }
