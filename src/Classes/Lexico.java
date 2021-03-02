@@ -652,7 +652,7 @@ public class Lexico {
     private void q23() {
         // reconhece o token consoleIn  
 
-        String token = "consoleIn ";
+        String token = "consoleIn";
         String lexema = "";
         int aux = comecoLexama;
         while (aux <= controladorPosicao) {

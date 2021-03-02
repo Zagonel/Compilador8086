@@ -1,28 +1,22 @@
 beginning      
 
-int nota1 = 1;
+int nota;
 
-int nota2 = 10;
-
-int nota3 = 6;
-
-int soma;
-
-soma= (nota1 + nota2 + nota3)/3;
+consoleIn(nota);
 
 if(soma > 10){
-
-consoleIn(nota1);
 
 consoleOut(soma);
 
 }else{
 
+int nota2;
+
 consoleOut(nota2);
 
 }
 
-while(nota1 > nota2){
+while(nota > nota2){
 
 consoleOut(soma);
 

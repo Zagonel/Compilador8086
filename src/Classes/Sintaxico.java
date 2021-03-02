@@ -1,38 +1,62 @@
 package Classes;
 
+import Principal.Main;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Sintaxico {
 
-    Pilha pilha = new Pilha();
-    List<String> registros = new ArrayList();
+    private List<String> pilha = new ArrayList();
+    private List<Token> listaTokens = new ArrayList();
 
-    //inicia no propio construtor
-    public Sintaxico() {
-        Token[] listaDeTokens = listarTokens();
-        empilhar("$");
-        empilhar("PROGRAM");
-    }
+    List<String> registros = new ArrayList();
 
     public void analisadorLexico() {
 
+        listarTokens();
+        empilhar("$");
+        empilhar("PROGRAM");
+
+        while (!pilha.isEmpty() && !listaTokens.isEmpty()) {
+            if (pilha.get(0).equals(listaTokens.get(0).getToken())) {
+                desempilhar(pilha.get(0));                
+                listaTokens.remove(0);
+            } else {
+                int aux = 0;      
+                
+                aux = tabelaSintatica(pilha.get(0), listaTokens.get(0).getToken());
+                if (aux == -1) {
+                    System.out.println("\n\nERRO Sintatico: " + listaTokens.get(0).getLexema() + " Linha: " + listaTokens.get(0).getLinha() + " Coluna: " + listaTokens.get(0).getColuna() + "\n\n");
+                    break;
+                } else {
+                    producaoSintatica(aux);
+                }
+            }
+        }
+    }
+
+    public void imprimirLog() {
+        for (int i = 0; i < registros.size(); i++) {
+            System.out.println(registros.get(i));
+            System.out.println("\n======================================================\n");
+        }
     }
 
     private void empilhar(String elemento) {
-        pilha.push(elemento);
+        pilha.add(0, elemento);
         registros.add("Elemento empilhado: " + elemento);
     }
 
-    private void desenpilhar() {
-        registros.add("Elemento deempilhado: " + pilha.pop());
+    private void desempilhar(String nome) {
+        pilha.remove(0);
+        registros.add("Elemento desempilhado: " + nome);
     }
 
-    private Token[] listarTokens() {
-        Token[] pilhaTokens = new Token[(Lexico.listaDeTokens.size()) + 1];
+    public void listarTokens() {
 
+        System.out.println("==============================================\n\n");
         for (int i = 0; i < Lexico.listaDeTokens.size(); i++) {
-            pilhaTokens[i] = Lexico.listaDeTokens.get(i);
+            listaTokens.add(Lexico.listaDeTokens.get(i));
         }
 
         Token terminal = new Token();
@@ -40,18 +64,7 @@ public class Sintaxico {
         terminal.setLexema("$");
         terminal.setLinha(0);
         terminal.setColuna(0);
-        pilhaTokens[Lexico.listaDeTokens.size()] = terminal;
-
-        return pilhaTokens;
-    }
-
-    public void imprimirTeste() {
-        Token[] teste = listarTokens();
-
-        for (int i = 0; i < teste.length; i++) {
-            System.out.println("--------------------------------------------");
-            System.out.println(teste[i]);
-        }
+        listaTokens.add(terminal);
     }
 
     // Aqui é montada a tabela sintatica do gaus, linha = Não-terminais , Coluna = terminais;
@@ -219,137 +232,220 @@ public class Sintaxico {
 
     }
 
-    private List<String> producaoSintatica(int numero) {
-        List<String> retorno = new ArrayList();
+    private void producaoSintatica(int numero) {
 
         if (numero == 0) {
-            retorno.add("beginning");
-            retorno.add("COMMANDS_LIST");
-            retorno.add("ending");
-            return retorno;
+
+            desempilhar("PROGRAM");
+
+            empilhar("ending");
+            empilhar("COMMANDS_LIST");
+            empilhar("beginning");
+
         } else if (numero == 1) {
-            retorno.add("COMMAND");
-            retorno.add("COMMANDS_LIST");
-            return retorno;
+
+            desempilhar("COMMANDS_LIST");
+
+            empilhar("COMMANDS_LIST");
+            empilhar("COMMAND");
+
         } else if (numero == 2) {
-            retorno.add("E");
-            return retorno;
+
+            desempilhar("COMMANDS_LIST");
+
+            registros.add("Ê");
+
         } else if (numero == 3) {
-            retorno.add("integer");
-            retorno.add("var");
-            retorno.add("ASSIGNMENT");
-            retorno.add("final");
-            return retorno;
+
+            desempilhar("COMMAND");
+
+            empilhar("final");
+            empilhar("ASSIGNMENT");
+            empilhar("var");
+            empilhar("integer");
+
         } else if (numero == 4) {
-            retorno.add("PARAMETER");
-            retorno.add("ASSIGNMENT");
-            retorno.add("final");
-            return retorno;
+
+            desempilhar("COMMAND");
+
+            empilhar("final");
+            empilhar("ASSIGNMENT");
+            empilhar("PARAMETER");
+
         } else if (numero == 5) {
-            retorno.add("equal");
-            retorno.add("SYMBOL");
-            return retorno;
+
+            desempilhar("ASSIGNMENT");
+
+            empilhar("SYMBOL");
+            empilhar("equal");
+
         } else if (numero == 6) {
-            retorno.add("MATHEMATICAL_EXPRESSION");
-            return retorno;
+
+            desempilhar("SYMBOL");
+
+            empilhar("MATHEMATICAL_EXPRESSION");
+
         } else if (numero == 7) {
-            retorno.add("E");
-            return retorno;
+
+            desempilhar("ASSIGNMENT");
+
+            registros.add("Ê");
+
         } else if (numero == 8) {
-            retorno.add("int");
-            return retorno;
+
+            desempilhar("PARAMETER");
+
+            empilhar("int");
+
         } else if (numero == 9) {
-            retorno.add("var");
-            return retorno;
+
+            desempilhar("PARAMETER");
+
+            empilhar("var");
+
         } else if (numero == 10) {
-            retorno.add("ConsoleOut");
-            retorno.add("abrePA");
-            retorno.add("COMPLETE_PARAMETER");
-            retorno.add("fechaPA");
-            retorno.add("final");
-            return retorno;
+
+            desempilhar("COMMAND");
+
+            empilhar("final");
+            empilhar("fechaPA");
+            empilhar("COMPLETE_PARAMETER");
+            empilhar("abrePA");
+            empilhar("consoleOut");
+
         } else if (numero == 11) {
-            retorno.add("consoleIn");
-            retorno.add("abrePA");
-            retorno.add("var");
-            retorno.add("fechaPA");
-            retorno.add("final");
-            return retorno;
+
+            desempilhar("COMMAND");
+
+            empilhar("final");
+            empilhar("fechaPA");
+            empilhar("var");
+            empilhar("abrePA");
+            empilhar("consoleIn");
+
         } else if (numero == 12) {
-            retorno.add("int");
-            return retorno;
+
+            desempilhar("COMPLETE_PARAMETER");
+
+            empilhar("int");
+
         } else if (numero == 13) {
-            retorno.add("var");
-            return retorno;
+
+            desempilhar("COMPLETE_PARAMETER");
+
+            empilhar("var");
+
         } else if (numero == 14) {
-            retorno.add("abrePA");
-            retorno.add("MATHEMATICAL_EXPRESSION");
-            retorno.add("LOGICAL_OPERATOR");
-            retorno.add("MATHEMATICAL_EXPRESSION");
-            retorno.add("fechaPA");
-            return retorno;
+
+            desempilhar("CALCULATION");
+
+            empilhar("fechaPA");
+            empilhar("MATHEMATICAL_EXPRESSION");
+            empilhar("LOGICAL_OPERATOR");
+            empilhar("MATHEMATICAL_EXPRESSION");
+            empilhar("abrePA");
+
         } else if (numero == 15) {
-            retorno.add("if");
-            retorno.add("CALCULATION");
-            retorno.add("abreCH");
-            retorno.add("COMMANDS_LIST");
-            retorno.add("fechaCH");
-            retorno.add("ELSE");
-            return retorno;
+
+            desempilhar("COMMAND");
+
+            empilhar("ELSE");
+            empilhar("fechaCH");
+            empilhar("COMMANDS_LIST");
+            empilhar("abreCH");
+            empilhar("CALCULATION");
+            empilhar("if");
+
         } else if (numero == 16) {
-            retorno.add("else");
-            retorno.add("abreCH");
-            retorno.add("COMMANDS_LIST");
-            retorno.add("fechaCH");
-            return retorno;
+
+            desempilhar("ELSE");
+
+            empilhar("fechaCH");
+            empilhar("COMMANDS_LIST");
+            empilhar("abreCH");
+            empilhar("else");
+
         } else if (numero == 17) {
-            retorno.add("E");
-            return retorno;
+
+            desempilhar("ELSE");
+
+            registros.add("Ê");
+
         } else if (numero == 18) {
-            retorno.add("while");
-            retorno.add("CALCULATION");
-            retorno.add("abreCH");
-            retorno.add("COMMANDS_LIST");
-            retorno.add("fechaCH");
-            return retorno;
+
+            desempilhar("COMMAND");
+
+            empilhar("fechaCH");
+            empilhar("COMMANDS_LIST");
+            empilhar("abreCH");
+            empilhar("CALCULATION");
+            empilhar("while");
+
         } else if (numero == 19) {
-            retorno.add("PARAMETER");
-            retorno.add("MATHEMATICAL_OPERATION");
-            return retorno;
+
+            desempilhar("MATHEMATICAL_EXPRESSION");
+
+            empilhar("MATHEMATICAL_OPERATION");
+            empilhar("PARAMETER");
+
         } else if (numero == 20) {
-            retorno.add("abrePA");
-            retorno.add("MATHEMATICAL_EXPRESSION");
-            retorno.add("fechaPA");
-            retorno.add("MATHEMATICAL_OPERATION");
-            return retorno;
+
+            desempilhar("MATHEMATICAL_EXPRESSION");
+
+            empilhar("MATHEMATICAL_OPERATION");
+            empilhar("fechaPA");
+            empilhar("MATHEMATICAL_EXPRESSION");
+            empilhar("abrePA");
+
         } else if (numero == 21) {
-            retorno.add("ARITHMETIC_OPERATOR");
-            retorno.add("MATHEMATICAL_EXPRESSION");
-            return retorno;
+
+            desempilhar("MATHEMATICAL_OPERATION");
+
+            empilhar("MATHEMATICAL_EXPRESSION");
+            empilhar("ARITHMETIC_OPERATOR");
+
         } else if (numero == 22) {
-            retorno.add("E");
-            return retorno;
+
+            desempilhar("MATHEMATICAL_OPERATION");
+
+            registros.add("Ê");
+
         } else if (numero == 23) {
-            retorno.add("addition");
-            return retorno;
+
+            desempilhar("ARITHMETIC_OPERATOR");
+
+            empilhar("addition");
+
         } else if (numero == 24) {
-            retorno.add("substraction");
-            return retorno;
+
+            desempilhar("ARITHMETIC_OPERATOR");
+
+            empilhar("substraction");
+
         } else if (numero == 25) {
-            retorno.add("multiplication");
-            return retorno;
+
+            desempilhar("ARITHMETIC_OPERATOR");
+
+            empilhar("multiplication");
+
         } else if (numero == 26) {
-            retorno.add("division");
-            return retorno;
+
+            desempilhar("ARITHMETIC_OPERATOR");
+
+            empilhar("division");
+
         } else if (numero == 27) {
-            retorno.add("maior");
-            return retorno;
+
+            desempilhar("LOGICAL_OPERATOR");
+
+            empilhar("maior");
+
         } else if (numero == 28) {
-            retorno.add("menor");
-            return retorno;
-        } else {
-            retorno.add("\0");
-            return retorno;
+
+            desempilhar("LOGICAL_OPERATOR");
+
+            empilhar("menor");
+
         }
     }
 

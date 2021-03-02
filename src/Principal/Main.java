@@ -44,11 +44,19 @@ public class Main {
                 menuPrincipal();
 
             case 2:
-                Sintaxico teste = new Sintaxico();
-                teste.imprimirTeste();
-                menuPrincipal();
-                break;
+                Sintaxico aux = new Sintaxico();
+                aux.analisadorLexico();
+                int i = JOptionPane.showConfirmDialog(null, "Deseja Imprimir o log de operações?");
                 
+                if (i == 0) {
+                    aux.imprimirLog();
+                    menuPrincipal();
+                } else {
+                    menuPrincipal();
+                }
+                
+                break;
+
             case 3:
                 break;
 
