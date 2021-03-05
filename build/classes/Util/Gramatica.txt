@@ -1,5 +1,15 @@
 beginning      
 
-consoleOut(nota);
+int nota;
+
+int nota2
+
+int media;
+
+
+media = ( nota + nota2 )/2;
+
+
+consoleOut(media);
 
 ending

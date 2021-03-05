@@ -12,7 +12,7 @@ public class Semantico {
         listarTokens();
         declaracaoPrevia();
         declaracaoDuplicada();
-
+        divisaoPorZero();
     }
 
     private void declaracaoPrevia() {
@@ -26,14 +26,14 @@ public class Semantico {
 
         for (int j = 0; j < listaTokens.size(); j++) {
             if (listaTokens.get(j).getToken().equals("var")) {
-                
+
                 for (int k = 0; k < listaVariavelDeclarada.size(); k++) {
                     equals = listaTokens.get(j).getLexema().equals(listaVariavelDeclarada.get(k).getLexema());
                     if (equals == true) {
                         break;
                     }
                 }
-                
+
                 if (equals == true) {
                     continue;
                 } else {
@@ -43,9 +43,31 @@ public class Semantico {
             }
         }
     }
-    
-    private void declaracaoDuplicada(){
-        
+
+    private void declaracaoDuplicada() {
+
+        for (int i = 0; i < listaVariavelDeclarada.size(); i++) {
+
+            for (int j = (i + 1); j < listaVariavelDeclarada.size(); j++) {
+                if (listaVariavelDeclarada.get(i).getLexema().equals(listaVariavelDeclarada.get(j).getLexema())) {
+                    System.out.println("ERRO Semantico: Variavel Declarada Duas vezes: Variavel: " + listaVariavelDeclarada.get(i).getLexema() + " Linha: " + listaVariavelDeclarada.get(i).getLinha() + " Coluna: " + listaVariavelDeclarada.get(i).getColuna());
+                    break;
+                }
+            }
+        }
+    }
+
+    private void divisaoPorZero() {
+
+        for (int i = 0; i < listaTokens.size(); i++) {
+
+            if (listaTokens.get(i).getLexema().equals("/")) {
+                if (listaTokens.get(i + 1).getLexema().equals("0")) {
+                    System.out.println("ERRO Semantico: Impossivel dividir por zero: Linha: " + listaTokens.get(i + 1).getLinha() + " Coluna: " + listaTokens.get(i + 1).getColuna());
+                    break;
+                }
+            }
+        }
     }
 
     public void listarTokens() {

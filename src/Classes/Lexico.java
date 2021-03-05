@@ -1226,18 +1226,8 @@ public class Lexico {
 
     public void imprimirTabelaTokens() {
         int aux = listaDeTokens.size();
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter("C:\\Users\\igor_\\OneDrive\\Documentos\\NetBeansProjects\\Compilador8086\\src\\Util\\TabelaTokens.txt", false);
-        } catch (IOException ex) {
-            Logger.getLogger(Lexico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        PrintWriter printWriter = new PrintWriter(fileWriter);
-
         for (int i = 0; aux > i; i++) {
             System.out.println(listaDeTokens.get(i));
-            printWriter.println(listaDeTokens.get(i).getToken() + " " + listaDeTokens.get(i).getLexema() + " " + listaDeTokens.get(i).getLinha() + " " + listaDeTokens.get(i).getColuna());
-            printWriter.flush();
         }
     }
 }
