@@ -1,6 +1,7 @@
 package Principal;
 
 import Classes.Lexico;
+import Classes.Semantico;
 import Classes.Sintaxico;
 import java.io.FileReader;
 import java.io.IOException;
@@ -47,17 +48,20 @@ public class Main {
                 Sintaxico aux = new Sintaxico();
                 aux.analisadorLexico();
                 int i = JOptionPane.showConfirmDialog(null, "Deseja Imprimir o log de operações?");
-                
+
                 if (i == 0) {
                     aux.imprimirLog();
                     menuPrincipal();
                 } else {
                     menuPrincipal();
                 }
-                
+
                 break;
 
             case 3:
+                Semantico aux2 = new Semantico();
+                aux2.AnalisadorSemantico();
+                menuPrincipal();
                 break;
 
             case 4:

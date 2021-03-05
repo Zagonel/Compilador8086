@@ -1,25 +1,5 @@
 beginning      
 
-int nota;
-
-consoleIn(nota);
-
-if(soma > 10){
-
-consoleOut(soma);
-
-}else{
-
-int nota2;
-
-consoleOut(nota2);
-
-}
-
-while(nota > nota2){
-
-consoleOut(soma);
-
-}
+consoleOut(nota);
 
 ending
