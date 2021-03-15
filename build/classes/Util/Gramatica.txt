@@ -2,12 +2,12 @@ beginning
 
 int nota;
 
-int nota2
+int nota;
 
 int media;
 
 
-media = ( nota + nota2 )/2;
+media = ( nota + nota2 )/0;
 
 
 consoleOut(media);
