@@ -1,15 +1,9 @@
 beginning      
 
-int nota;
+int nota1;
 
-int nota;
+int nota2;
 
-int media;
-
-
-media = ( nota + nota2 )/0;
-
-
-consoleOut(media);
+int media = (nota1+nota2)/2;
 
 ending

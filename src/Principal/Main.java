@@ -1,5 +1,6 @@
 package Principal;
 
+import Classes.Intermediario;
 import Classes.Lexico;
 import Classes.Semantico;
 import Classes.Sintaxico;
@@ -43,6 +44,7 @@ public class Main {
                 arquivo.iniciarLista(URL);
                 arquivo.imprimirTabelaTokens();
                 menuPrincipal();
+                break;
 
             case 2:
                 Sintaxico aux = new Sintaxico();
@@ -64,8 +66,13 @@ public class Main {
                 menuPrincipal();
                 break;
 
-            case 4:
-
+            case 4:                
+                Intermediario aux3 = new Intermediario();
+                
+                aux3.codigoIntermediario();
+                
+                aux3.imprimirCodigoIntermediario();
+                menuPrincipal();
                 break;
 
             case 5:
