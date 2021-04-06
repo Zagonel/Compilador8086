@@ -1,5 +1,6 @@
 package Principal;
 
+import Classes.CodigoFinal;
 import Classes.Intermediario;
 import Classes.Lexico;
 import Classes.Semantico;
@@ -68,10 +69,15 @@ public class Main {
 
             case 4:                
                 Intermediario aux3 = new Intermediario();
+                CodigoFinal aux4 = new CodigoFinal();
                 
                 aux3.codigoIntermediario();
                 
                 aux3.imprimirCodigoIntermediario();
+                
+                aux4.codigoFinal();
+                aux4.imprimirCodigoFinal();
+                
                 menuPrincipal();
                 break;
 
