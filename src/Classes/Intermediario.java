@@ -106,7 +106,7 @@ public class Intermediario {
                 }
                 formula = Posfixa.conversao(formula);
 
-                codigoIntermediario.add("aritmetico "+formula);
+                codigoIntermediario.add(formula);
                 logIntermediario.add("Reconhecido a formula aritimetica " + listaTokens.get(i - 1).getLexema() + " " + listaTokens.get(i).getLexema() + " " + formula);
                 formula = "";
             }

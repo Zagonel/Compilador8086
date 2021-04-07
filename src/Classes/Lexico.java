@@ -63,10 +63,10 @@ public class Lexico {
         CAMINHO = URL;
         qtdLinhas = contadorDeLinhas(CAMINHO);
         Scanner in = new Scanner(new FileReader(URL));
-        
+
         for (int i = 0; qtdLinhas != i; i++) {
-            gramatica.add(in.nextLine().concat("\0"));           
-        }        
+            gramatica.add(in.nextLine().concat("\0"));
+        }
         inicioFita();
     }
 
