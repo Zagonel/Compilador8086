@@ -28,8 +28,7 @@ public class CodigoFinal {
 
         for (int i = 0; i < codigoIntermediario.size(); i++) {
 
-            aux = codigoIntermediario.get(i).split(" ");
-            System.out.println(Arrays.toString(aux));
+            aux = codigoIntermediario.get(i).split(" ");            
 
             for (int k = 0; k < aux.length; k++) {
 
@@ -186,7 +185,7 @@ public class CodigoFinal {
 
     public void imprimirCodigoFinal() {
 
-        System.out.println("=======================================\n\n");
+        System.out.println("==============================================\n\n");
         for (int i = 0; i < codigoFinal.size(); i++) {
             System.out.println(codigoFinal.get(i));
         }

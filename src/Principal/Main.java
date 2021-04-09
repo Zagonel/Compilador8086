@@ -19,13 +19,22 @@ public class Main {
     public static void menuPrincipal() throws IOException {
         int opcao = 0;
 
+        String URL = "C:\\Users\\igor_\\OneDrive\\Documentos\\NetBeansProjects\\Compilador8086\\src\\Util\\Gramatica.txt";
+
+        Lexico arquivo = new Lexico();
+        Sintaxico aux = new Sintaxico();
+        Semantico aux2 = new Semantico();
+        Intermediario aux3 = new Intermediario();
+        CodigoFinal aux4 = new CodigoFinal();
+
         try {
             opcao = Integer.valueOf(JOptionPane.showInputDialog(null, "|----------------------- Menu Principal ---------------------------|\n"
                     + "|  1 - Lexico\n"
                     + "|  2 - Sintaxico\n"
                     + "|  3 - Semantico\n"
-                    + "|  4 - CodigoFinal\n"
-                    + "|  5 - Sair\n"
+                    + "|  4 - Codigo Final e Intermediario\n"
+                    + "|  5 - Compilador Completo\n"
+                    + "|  6 - Sair\n"
                     + "|--------------------------------------------------------------|\n\n"
                     + "Digite a opção requerida:"));
         } catch (NumberFormatException e) {
@@ -38,18 +47,19 @@ public class Main {
 
         switch (opcao) {
             case 1:
-                //fazer dps pro usuario colocar a URL no menu
 
-                String URL = "C:\\Users\\igor_\\OneDrive\\Documentos\\NetBeansProjects\\Compilador8086\\src\\Util\\Gramatica.txt";
-                Lexico arquivo = new Lexico();
                 arquivo.iniciarLista(URL);
                 arquivo.imprimirTabelaTokens();
+
                 menuPrincipal();
                 break;
 
             case 2:
-                Sintaxico aux = new Sintaxico();
-                aux.analisadorLexico();
+
+                arquivo.iniciarLista(URL);
+
+                aux.analisadorSintatico();
+
                 int i = JOptionPane.showConfirmDialog(null, "Deseja Imprimir o log de operações?");
 
                 if (i == 0) {
@@ -62,26 +72,58 @@ public class Main {
                 break;
 
             case 3:
-                Semantico aux2 = new Semantico();
+
+                arquivo.iniciarLista(URL);
+
                 aux2.AnalisadorSemantico();
                 menuPrincipal();
                 break;
 
-            case 4:                
-                Intermediario aux3 = new Intermediario();
-                CodigoFinal aux4 = new CodigoFinal();
-                
+            case 4:
+
+                arquivo.iniciarLista(URL);
+
+                if (aux.analisadorSintatico() == -1) {
+                    menuPrincipal();
+                    break;
+                }
+
+                if (aux2.AnalisadorSemantico() == -1) {
+                    menuPrincipal();
+                    break;
+                }
+
                 aux3.codigoIntermediario();
-                
                 aux3.imprimirCodigoIntermediario();
-                
+
                 aux4.codigoFinal();
                 aux4.imprimirCodigoFinal();
-                
+
                 menuPrincipal();
                 break;
 
             case 5:
+
+                arquivo.iniciarLista(URL);
+
+                if (aux.analisadorSintatico() == -1) {
+                    menuPrincipal();
+                    break;
+                }
+
+                if (aux2.AnalisadorSemantico() == -1) {
+                    menuPrincipal();
+                    break;
+                }
+
+                aux3.codigoIntermediario();
+                aux4.codigoFinal();
+                aux4.imprimirCodigoFinal();
+
+                menuPrincipal();
+                break;
+
+            case 6:
                 System.exit(0);
                 break;
 

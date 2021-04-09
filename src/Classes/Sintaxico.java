@@ -10,7 +10,7 @@ public class Sintaxico {
 
     List<String> registros = new ArrayList();
 
-    public void analisadorLexico() {
+    public int analisadorSintatico() {
 
         listarTokens();
         empilhar("$");
@@ -26,18 +26,19 @@ public class Sintaxico {
                 aux = tabelaSintatica(pilha.get(0), listaTokens.get(0).getToken());
                 if (aux == -1) {
                     System.out.println("\n\nERRO Sintatico: " + listaTokens.get(0).getLexema() + " Linha: " + listaTokens.get(0).getLinha() + " Coluna: " + listaTokens.get(0).getColuna() + "\n\n");
-                    break;
+                    return -1;                    
                 } else {
                     producaoSintatica(aux);
                 }
             }
         }
+        return 0;
     }
 
     public void imprimirLog() {
         for (int i = 0; i < registros.size(); i++) {
             System.out.println(registros.get(i));
-            System.out.println("\n======================================================\n");
+            System.out.println("\n==============================================\n");
         }
     }
 
